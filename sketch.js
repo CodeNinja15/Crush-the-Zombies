@@ -1,46 +1,34 @@
 const Engine = Matter.Engine;
+const Render = Matter.Render;
 const World = Matter.World;
 const Bodies = Matter.Bodies;
 const Constraint = Matter.Constraint;
+const Body = Matter.Body;
+const Composites = Matter.Composites;
+const Composite = Matter.Composite;
 
-var engine, world;
-var canvas;
-var palyer, playerBase;
-var computer, computerBase;
 
 
 function setup() {
-  canvas = createCanvas(windowWidth, windowHeight);
-
+  createCanvas(windowWidth, windowHeight);
   engine = Engine.create();
   world = engine.world;
+  frameRate(80);
 
-  playerBase = new PlayerBase(300, random(450, height - 300), 180, 150);
-  player = new Player(280, playerBase.body.position.y - 153, 50, 180);
-
-
-  computerBase = new ComputerBase(width - 300, random(450, height - 300), 180, 150);
-  computer = new Computer(width - 280, computerBase.body.position.y - 153, 50, 180); 
 }
 
 function draw() {
-  background(189);
-
+  background(51);
   Engine.update(engine);
+  stone.display();
+}
 
-  // Title
-  fill("#FFFF");
-  textAlign("center");
-  textSize(40);
-  text("EPIC ARCHERY", width / 2, 100);
+Matter.Composite.add(bridge.body, jointPoint);
+jointLink = new Link(bridge, jointPoint);
 
- 
-  playerBase.display();
-  player.display();
-  
-
-  computerBase.display();
-  computer.display();
-  
-
+for(var i = 0; i <= 8; i++) {
+  var x = random(width/2 - 200, width/2 + 300);
+  var y = random(-10, 140);
+  var stone = new Stone(x, y, 80, 80);
+  stones.push(stone);
 }
